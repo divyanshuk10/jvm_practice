@@ -8,7 +8,13 @@ public class StreamMapCollect {
     public static void main(String[] args) {
 
         List<UserDTO> userDTOList = getUserListFromDB().stream().map(user -> new UserDTO(user.getId(), user.getUsername(), user.getEmail())).collect(Collectors.toList());
+        System.out.println(userDTOList.toString());
 
+        List<List<UserDTO>> listList = new ArrayList<>();
+        listList.add(userDTOList);
+
+        List<UserDTO> userDTOList2 =  listList.stream().flatMap(userDTOS -> userDTOS.stream()).map(user -> new UserDTO(user.getId(), user.getUsername(), user.getEmail())).collect(Collectors.toList());
+        System.out.println(userDTOList2.toString());
     }
 
 
